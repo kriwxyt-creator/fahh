@@ -1,0 +1,10 @@
+package net.simolclient.module.impl.perf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.option.ParticlesMode;
+import net.simolclient.module.Module;
+public final class PerformanceModule extends Module {
+ private int oldDistance=-1;
+ public PerformanceModule(){super("performance_mode","Performance Mode",Category.PERFORMANCE,false);}
+ protected void onEnable(){try{Minecraft c=Minecraft.getInstance(); oldDistance=c.options.getEffectiveRenderDistance(); c.options.particles().set(ParticlesMode.MINIMAL); c.options.cloudStatus().set(net.minecraft.client.CloudStatus.OFF); c.options.entityShadows().set(false); c.options.renderDistance().set(Math.min(oldDistance,8));}catch(Throwable ignored){}}
+ protected void onDisable(){try{if(oldDistance>0)Minecraft.getInstance().options.renderDistance().set(oldDistance);}catch(Throwable ignored){}}
+}

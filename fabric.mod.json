@@ -1,0 +1,8 @@
+package net.simolclient.module.impl.hud;
+import net.minecraft.client.DeltaTracker; import net.minecraft.client.Minecraft; import net.minecraft.client.gui.GuiGraphicsExtractor; import net.minecraft.network.chat.Component;
+import net.simolclient.module.Module; import net.simolclient.util.GuiDraw;
+public final class SessionHudModule extends Module {
+ private long start=System.currentTimeMillis();
+ public SessionHudModule(){super("session_hud","Session Info",Category.HUD,false);}
+ public void renderHud(Minecraft c,GuiGraphicsExtractor g,DeltaTracker d){long sec=(System.currentTimeMillis()-start)/1000; GuiDraw.text(g,c.font,Component.literal("Session: "+(sec/60)+"m "+(sec%60)+"s"),8,136,0xFFFFFFFF);}
+}
